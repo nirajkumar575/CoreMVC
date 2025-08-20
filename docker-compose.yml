@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong!Passw0rd
+    ports:
+      - "1433:1433"
+    networks:
+      - appnetwork
+
+  webapp:
+    build: .
+    container_name: coremvc
+    depends_on:
+      - sqlserver
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=CoreMVC;User Id=sa;Password=1234;TrustServerCertificate=True;
+    ports:
+      - "5000:80"
+    networks:
+      - appnetwork
+
+networks:
+  appnetwork:
