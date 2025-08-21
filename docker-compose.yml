@@ -1,29 +1,23 @@
 version: '3.8'
 
 services:
-  db:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: sqlserver_container
+  coremvc:
+    image: coremvc:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5001:80"
     environment:
-      SA_PASSWORD: "Spectrum2@"
+      # Connection string for SQL Server running in another container
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=CoreMVC;User Id=sa;Password=1234;TrustServerCertificate=True;"
+    depends_on:
+      - sqlserver
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "1234"
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
-    networks:
-      - app-network
-
-  web:
-    build: .
-    container_name: coremvc_app
-    ports:
-      - "8080:80"
-    depends_on:
-      - db
-    environment:
-      - ConnectionStrings__DefaultConnection=${DATABASE_URL}
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
