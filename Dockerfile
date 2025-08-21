@@ -1,27 +1,22 @@
-# Step 1: Base image for runtime
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
-WORKDIR /app
-EXPOSE 80
-
-# Step 2: Build image
+# Stage 1: Build
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# 👉 yaha apna project ka exact .csproj file name likho
-COPY ["CoreMVC.csproj", "./"]
+# Copy csproj and restore
+COPY ["CoreMVC/CoreMVC.csproj", "CoreMVC/"]
+RUN dotnet restore "CoreMVC/CoreMVC.csproj"
 
-RUN dotnet restore "./CoreMVC.csproj"
-
+# Copy everything and build
 COPY . .
-WORKDIR "/src/."
+WORKDIR "/src/CoreMVC"
 RUN dotnet build "CoreMVC.csproj" -c Release -o /app/build
 
-# Step 3: Publish
+# Stage 2: Publish
 FROM build AS publish
 RUN dotnet publish "CoreMVC.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-# Step 4: Final image
-FROM base AS final
+# Stage 3: Runtime
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "CoreMVC.dll"]
