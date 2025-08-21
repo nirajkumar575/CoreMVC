@@ -6,6 +6,8 @@
 <ul class="navbar-nav">
     @await Html.PartialAsync("_DigitalClock")
 
+    
+
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
@@ -26,4 +28,31 @@
             <a class="nav-link text-white bi bi-box-arrow-in-right" id="login" asp-area="Identity" asp-page="/Account/Login"> Login</a>
         </li>
     }
+    <li class="nav-item">
+        <!-- In _Layout.cshtml -->
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary">
+            <i class="bi bi-toggle-off" style="color:#00ff00"></i>
+        </button>
+
+    </li>
 </ul>
+
+<script>
+    // Check saved preference in localStorage
+    document.addEventListener("DOMContentLoaded", function () {
+        if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark-mode");
+        }
+
+        document.getElementById("themeToggle").addEventListener("click", function () {
+            document.body.classList.toggle("dark-mode");
+
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+            } else {
+                localStorage.setItem("theme", "light");
+            }
+        });
+    });
+</script>
+
