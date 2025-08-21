@@ -9,15 +9,15 @@ services:
     ports:
       - "5001:80"
     environment:
-      # Connection string for SQL Server running in another container
-      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=CoreMVC;User Id=sa;Password=1234;TrustServerCertificate=True;"
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=CoreMVC;User Id=sa;Password=Your_password123;TrustServerCertificate=True;MultipleActiveResultSets=True;"
     depends_on:
       - sqlserver
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlserver
     environment:
-      SA_PASSWORD: "1234"
+      SA_PASSWORD: "Your_password123"
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
