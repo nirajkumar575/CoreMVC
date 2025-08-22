@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using CoreMVC.Models;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreMVC.Controllers
@@ -11,7 +12,7 @@ namespace CoreMVC.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-        }
+        }     
 
         public IActionResult Index()
         {

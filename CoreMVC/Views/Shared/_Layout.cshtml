@@ -1,5 +1,7 @@
 ﻿﻿@using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CoreMVC</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/BulkyBookWeb.styles.css" asp-append-version="true" />
+    @* <link rel="stylesheet" href="~/CoreMVC.styles.css" asp-append-version="true" /> *@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 
@@ -18,7 +20,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3">
-            <div class="container-fluid text-bg-dark">
+            <div class="container-fluid" style="background-color:black">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <i class="bi bi-apple"></i>
                     @* <img src="/images/book.png" style="width:30px" /> *@
@@ -42,24 +44,51 @@
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Content Managment
                                 </a>
+
                                 <ul class="dropdown-menu">
                                     <li class="nav-item">
-                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+                                        <a class="dropdown-item"
+                                           asp-area="Admin" asp-controller="Category" asp-action="Index">
+                                            <i class="bi bi-tags me-2 text-warning"></i> Category
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+                                            <li>
+                                                <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">
+                                                    <i class="bi bi-list-task me-2 text-success"></i> Manage Categories
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Create">
+                                                    <i class="bi bi-plus-circle me-2 text-primary"></i> Add Category
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                   
+                                    <li class="nav-item">
+                                        <a class="dropdown-item text-black bg-white"
+                                        asp-area="Admin" asp-controller="Product" asp-action="Index">
+                                            <i class="bi bi-box-seam me-2 text-info"></i> Product
+                                        </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
+                                        <a class="dropdown-item text-black bg-white"
+                                           asp-area="Admin" asp-controller="Company" asp-action="Index">
+                                            <i class="bi bi-buildings me-2" style="color:black"></i>  Company
+                                        </a>
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li class="nav-item">
-                                        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Create User</a>
+                                        <a class="dropdown-item text-black bg-white"
+                                           asp-area="Identity" asp-page="/Account/Register">
+                                            <i class="bi bi-person-plus me-2" style="color:blueviolet"></i> Create User
+                                        </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">Manage User</a>
+                                        <a class="dropdown-item text-black bg-white"
+                                           asp-area="Admin" asp-controller="User" asp-action="Index">
+                                           <i class="bi bi-people me-2" style="color:dodgerblue"></i> Manage User </a>
                                     </li>
-
                                 </ul>
                             </li>
                         }
@@ -71,7 +100,8 @@
                             </a>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" />                  
+                    <partial name="_LoginPartial" />     
+                    
                 </div>
             </div>
         </nav>

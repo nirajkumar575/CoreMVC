@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<data name="Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+	<data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+	<data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+	<data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+	<data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+</root>

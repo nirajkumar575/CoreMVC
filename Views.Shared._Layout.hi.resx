@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<data name="Welcome" xml:space="preserve">
+    <value>स्वागत है</value>
+  </data>
+	<data name="Language" xml:space="preserve">
+    <value>भाषा</value>
+  </data>
+	<data name="Home" xml:space="preserve">
+    <value>मुख्य पृष्ठ</value>
+  </data>
+	<data name="About" xml:space="preserve">
+    <value>परिचय</value>
+  </data>
+	<data name="Contact" xml:space="preserve">
+    <value>संपर्क</value>
+  </data>
+</root>

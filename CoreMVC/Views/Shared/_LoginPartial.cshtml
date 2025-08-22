@@ -9,21 +9,64 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a id="manage" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+            <style>
+                .a{
+                    color:springgreen
+                }
+            </style>
+
+            <a id="manage" class="nav-link bg-black" onmouseover="changeColor(this, 'white')" onmouseout="resetColor(this)"
+            asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+            <i class="bi bi-person-circle me-2 text-white"></i> 
+            Hello @UserManager.GetUserName(User)!</a>
         </li>
         <li class="nav-item">
-            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-danger border-0"><i class="bi bi-box-arrow-right"></i> Logout</button>
+            <form id="logoutForm" class="form-inline"
+            asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button id="logout" type="submit" class="nav-link bg-black alert-dark border-0"                      
+                onmouseover="changeColor(this, 'Red')"
+                onmouseout="resetColor(this)">
+                <i class="bi bi-box-arrow-right" style="color:red"></i> 
+                Logout
+            </button>
             </form>
         </li>
     }
     else
     {
+        
         <li class="nav-item">
-            <a class="nav-link text-white bi bi-person-plus" id="register" asp-area="Identity" asp-page="/Account/Register"> Register</a>
+            <a class="nav-link"
+               onmouseover="changeColor(this, 'springgreen')"
+               onmouseout="resetColor(this)"
+               id="register" asp-area="Identity" asp-page="/Account/Register">
+                <i class="bi bi-person-plus" style="color:springgreen"></i> Register
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white bi bi-box-arrow-in-right" id="login" asp-area="Identity" asp-page="/Account/Login"> Login</a>
+            <a class="nav-link"
+               onmouseover="changeColor(this, 'springgreen')"
+               onmouseout="resetColor(this)"
+               id="login" asp-area="Identity" asp-page="/Account/Login">
+                <i class="bi bi-box-arrow-in-right" style="color:springgreen"></i> Login
+            </a>
         </li>
+        
     }
+    <li class="nav-item">
+        <!-- In _Layout.cshtml -->
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary">
+            <i class="bi bi-toggle-off" style="color:white"></i>
+        </button>
+
+    </li>
 </ul>
+<script>
+    function changeColor(element, color) {
+      element.style.color = color; // set hover color
+    }
+
+    function resetColor(element) {
+      element.style.color = ""; // reset back to default
+    }
+</script>

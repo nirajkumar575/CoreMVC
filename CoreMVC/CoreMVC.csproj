@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -18,12 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Customer\Controllers\" />
-    <Folder Include="Areas\Customer\Views\" />
+    <ProjectReference Include="..\CoreMVC.DataAccess\CoreMVC.DataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CoreMVC.DataAccess\CoreMVC.DataAccess.csproj" />
+    <Folder Include="wwwroot\Resources\" />
   </ItemGroup>
 
 </Project>
