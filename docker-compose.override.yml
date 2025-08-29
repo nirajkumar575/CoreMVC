@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  sqlserver2022:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver2022
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Spectrum2@
+    ports:
+      - "1433:1433"
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "Spectrum2@", "-Q", "SELECT 1"]
+      interval: 10s
+      retries: 10
+      start_period: 30s
+
+  coremvc:
+    build: .
+    depends_on:
+      sqlserver2022:
+        condition: service_healthy
+    ports:
+      - "8085:80"
